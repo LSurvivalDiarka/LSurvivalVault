@@ -1,6 +1,6 @@
 # 📦 LSurvival Vault (RocketMod 4)
 
-![LSurvival Vault Icon](https://i.imgur.com/tGFsdnA.png)
+![LSurvival Vault Icon](https://imgur.com/j1Zjtd0.png)
 
 
 # 📦 LSurvival Vault (RocketMod 4)
