@@ -1,256 +1,86 @@
-# LSurvival Vault - Plugin Simple para Unturned
+# 📦 LSurvival Vault (RocketMod 4)
 
 ![LSurvival Vault Icon](https://i.imgur.com/tGFsdnA.png)
 
-Plugin minimalista de **vault personal único** para Unturned 3 con OpenMod 3.8.x.
 
-## 🎯 Características
 
-- ✅ **Un vault por jugador**: Inventario personal persistente
-- ✅ **Comando `/vault`**: Abre/cierra el vault (toggle)
-- ✅ **UI nativa de Unturned**: Inventario tipo almacén (storage)
-- ✅ **Persistencia JSON segura**: Guardado atómico sin duplicación
-- ✅ **Anti-dupe**: Sesión única, escritura atómica (.tmp → .json)
-- ✅ **Cierre automático**: Al desconectar se guarda y cierra
-- ✅ **Sin placeholders**: Implementación completa y funcional
+### La Solución Definitiva de Almacenamiento Virtual para Servidores de Alto Rendimiento.
 
-## 📦 Instalación
+**LSurvival Vault** no es otro plugin de `/vault` más. Es una reingeniería total del concepto de almacenamiento personal, diseñado específicamente para servidores **Survival, PvP y Hardcore** que no pueden permitirse fallos, lag ni dupeos.
 
-### Compilación
+Olvídate de las barricadas físicas bajo el mapa y los glitches de duplicación. Este sistema es **100% Virtual, Seguro y Escalable**.
 
-```bash
-cd "c:\Users\sauld\Desktop\Plugins\LSurvivalvault"
-dotnet restore
-dotnet build -c Release
+-----
+
+## 🔥 Características Principales
+
+  * 🚀 **Tecnología "Zero-Lag":** A diferencia de otros plugins, este **NO spawnea cajas físicas** en el mapa. Todo ocurre en la memoria, lo que significa **0 impacto en los FPS** del servidor, sin importar cuántos jugadores lo usen a la vez.
+  * 🔒 **Blindado contra Dupeos:** Sistema de persistencia inteligente con **Auto-Guardado** cada 60 segundos. Si tu servidor crashea, los items de tus jugadores están seguros.
+  * 🎒 **Sistema Multi-Vault Escalable (1-18):** Configura hasta **18 baúles diferentes** con tamaños personalizados. Desde una mochila pequeña (5x5) hasta un almacén gigante (12x14).
+  * ⚔️ **Protección PvP "Fair Play":** Evita el *Combat Stashing*. Si un jugador recibe daño de otro usuario, el baúl se bloquea temporalmente. ¡Se acabaron los cobardes que guardan el loot antes de morir\!
+  * 👮 **Herramientas de Administración:** Inspecciona el baúl de cualquier jugador (online u offline) en tiempo real con un solo comando. Ideal para detectar robos o dar soporte.
+  * 🎨 **Totalmente Personalizable:** Configura mensajes, colores, iconos del chat, cooldowns y tamaños a tu gusto.
+
+-----
+
+## 📜 Comandos y Permisos
+
+### 👤 Para Jugadores
+
+| Comando | Sintaxis | Descripción | Permiso Requerido |
+| :--- | :--- | :--- | :--- |
+| **/vault** | `/vault` | Abre tu Baúl Principal (ID 1). | `lsurvival.vault.1` |
+| **/vault** | `/vault [id]` | Abre un baúl específico (Ej: `/vault 2`, `/vault 5`). | `lsurvival.vault.[id]` |
+
+> **Nota:** El sistema de permisos es dinámico. Si quieres que un VIP tenga acceso al Baúl 5, solo dale el permiso `lsurvival.vault.5`.
+
+### 🛡️ Para Administradores
+
+| Comando | Sintaxis | Descripción | Permiso Requerido |
+| :--- | :--- | :--- | :--- |
+| **/adminvault** | `/adminvault [jugador] [id]` | Abre el baúl de otro jugador para inspeccionarlo o modificarlo. Funciona incluso si el jugador está desconectado. | `lsurvival.admin` |
+
+-----
+
+## ⚙️ Configuración Avanzada
+
+El archivo `LSurvivalVault.configuration.xml` te da control total sobre la experiencia:
+
+### 📏 Tamaños de Baúles (Progresión)
+
+Puedes definir el tamaño exacto (Ancho x Alto) para cada uno de los 18 baúles.
+
+  * *Ejemplo:* Haz que el **Vault 1** sea pequeño (5x5) para usuarios gratis y el **Vault 2** sea grande (10x10) para VIPs.
+
+<!-- end list -->
+
+```xml
+<Vaults>
+  <VaultDefinition><Id>1</Id><Width>5</Width><Height>5</Height></VaultDefinition>
+  <VaultDefinition><Id>2</Id><Width>10</Width><Height>10</Height></VaultDefinition>
+  ...
+</Vaults>
 ```
 
-### Despliegue
+### ⚔️ Sistema de Combate
 
-1. Copiar `bin/Release/netstandard2.1/` a `<Servidor>/OpenMod/plugins/LSurvivalVault/`
-2. Reiniciar el servidor
-3. Verificar en logs: `LSurvival Vault v1.0.0`
+  * **BlockInCombat:** `true` / `false` (Activa el bloqueo en PvP).
+  * **CombatCooldownSeconds:** Tiempo en segundos que el jugador debe esperar tras recibir un golpe (Ej: `30`).
 
-## 🎮 Uso
+### 💾 Seguridad de Datos
 
-### Comando
+  * **AutoSaveIntervalSeconds:** Frecuencia con la que el servidor guarda los baúles abiertos para prevenir pérdida de datos por crashes (Recomendado: `60`).
 
-```
-/vault
-```
+-----
 
-**Comportamiento**:
-- **Primera ejecución**: Crea y abre vault vacío
-- **Con vault abierto**: Cierra y reabre (toggle)
-- **Al cerrar inventario**: Se guarda automáticamente
+## 📥 Instalación
 
-### Permiso
+1.  Apaga tu servidor.
+2.  Copia **`LSurvivalVault.dll`** en la carpeta `.../Rocket/Plugins/`.
+3.  Copia la librería **`LiteDB.dll`** en la carpeta `.../Rocket/Libraries/`.
+4.  Enciende el servidor.
+5.  Configura los permisos en `Permissions.config.xml` y ¡listo\!
 
-```
-lsurvivalvault.vault
-```
+-----
 
-Por defecto: habilitado para todos los jugadores.
-
-## ⚙️ Configuración
-
-Editar `appsettings.json`:
-
-```json
-{
-  "LSurvivalVault": {
-    "DataFolderName": "data/vaults",
-    "VaultWidth": 6,
-    "VaultHeight": 4,
-    "PollingIntervalSeconds": 1,
-    "Messages": {
-      "VaultOpened": "Has abierto tu vault.",
-      "VaultClosed": "Vault cerrado y guardado.",
-      "VaultReloaded": "Vault recargado.",
-      "VaultAlreadyOpen": "Ya tienes el vault abierto.",
-      "VaultError": "No se pudo abrir tu vault. Contacta con un administrador.",
-      "NotPlayer": "Este comando solo puede ser usado por jugadores."
-    }
-  }
-}
-```
-
-### Opciones
-
-| Opción | Descripción | Default |
-|--------|-------------|---------|
-| `DataFolderName` | Carpeta de datos | `data/vaults` |
-| `VaultWidth` | Columnas del vault | `6` |
-| `VaultHeight` | Filas del vault | `4` |
-| `PollingIntervalSeconds` | Intervalo de verificación de cierre | `1` |
-
-## 🔒 Sistema Anti-Dupe
-
-### Protecciones Implementadas
-
-1. **Sesión única por jugador**:
-   - Dictionary en memoria (`VaultSessionManager`)
-   - Solo una sesión activa a la vez
-   - Al abrir con sesión existente → cierra automáticamente
-
-2. **Guardado atómico**:
-   ```
-   Serializar → Escribir a .tmp → File.Move(tmp, json, overwrite:true)
-   ```
-   - Si falla: archivo original intacto
-   - Operación atómica en Windows
-
-3. **Cierre automático al desconectar**:
-   - `PlayerDisconnectListener` → evento `UnturnedPlayerDisconnectedEvent`
-   - Guarda y destruye barricada virtual
-   - Elimina sesión de memoria
-
-4. **Cleanup de barricadas huérfanas**:
-   - Al cargar el plugin, destruye barricadas en coordenadas (9999, 9999, 9999)
-   - Evita acumulación tras crashes
-
-## 📁 Estructura de Archivos
-
-```
-LSurvivalVault/
-├── LSurvivalVault.csproj
-├── plugin.yaml
-├── appsettings.json
-├── LSurvivalVaultPlugin.cs
-│
-├── Commands/
-│   └── VaultCommand.cs
-│
-├── Models/
-│   ├── VaultItemRecord.cs
-│   ├── VaultRecord.cs
-│   └── VaultSession.cs
-│
-├── Persistence/
-│   ├── IVaultRepository.cs
-│   └── JsonVaultRepository.cs
-│
-├── Services/
-│   ├── IVaultService.cs
-│   ├── VaultService.cs
-│   ├── IVaultSessionManager.cs
-│   └── VaultSessionManager.cs
-│
-└── Listeners/
-    └── PlayerDisconnectListener.cs
-```
-
-**Total: 16 archivos**
-
-## 🗂️ Formato de Datos
-
-### Archivo JSON
-
-```
-OpenMod/plugins/LSurvivalVault/data/vaults/vault_{steamId}.json
-```
-
-**Ejemplo**:
-
-```json
-{
-  "playerId": "76561198123456789",
-  "items": [
-    {
-      "itemId": 363,
-      "amount": 1,
-      "quality": 100,
-      "state": "..."
-    }
-  ],
-  "lastSavedUtc": "2025-01-17T12:34:56.789Z"
-}
-```
-
-## 🛠️ Implementación Técnica
-
-### Creación de Vault Virtual
-
-1. Spawneo de barricada en coordenadas ocultas (9999, 9999, 9999)
-2. Uso de `ItemStorageAsset` (caja de madera, ID 328)
-3. Configuración de dimensiones customizadas
-4. Población con items cargados del JSON
-
-### Sincronización de Items
-
-**Al abrir**:
-```csharp
-foreach (var itemRecord in vault.Items)
-{
-    var item = new Item(itemRecord.ItemId, itemRecord.Amount,
-                       itemRecord.Quality, itemRecord.State);
-    storage.items.tryAddItem(item);
-}
-```
-
-**Al cerrar**:
-```csharp
-for (byte page = 0; page < storage.items.getItemCount(); page++)
-{
-    var item = storage.items.getItem(page);
-    vaultRecord.Items.Add(new VaultItemRecord(...));
-}
-```
-
-### Detección de Cierre
-
-Polling cada segundo:
-```csharp
-while (hasSession)
-{
-    await UniTask.Delay(1s);
-    if (!player.inventory.isStoring)
-        await CloseVaultAsync();
-}
-```
-
-## ⚠️ Solución de Problemas
-
-### "INTERNAL ERROR" al ejecutar /vault
-
-1. Revisar logs en `OpenMod/logs/latest.log`
-2. Verificar que existe un `ItemStorageAsset` (ID 328)
-3. Comprobar permisos de la carpeta `data/vaults`
-
-### Items no se guardan
-
-1. Verificar que el jugador cierra el inventario (ESC)
-2. Revisar logs para errores de escritura
-3. Comprobar espacio en disco
-
-### Barricadas visibles en el mapa
-
-El plugin usa coordenadas (9999, 9999, 9999) que están fuera del mapa. Si son visibles, verificar:
-1. Tamaño del mapa (`Regions.WORLD_SIZE`)
-2. Ajustar coordenadas si es necesario
-
-## 📊 Estadísticas del Proyecto
-
-| Métrica | Valor |
-|---------|-------|
-| Total archivos | 16 |
-| Líneas de código | ~800 |
-| Clases | 13 |
-| Interfaces | 3 |
-| Dependencias NuGet | 5 |
-
-## 🔄 Roadmap
-
-- [ ] Comando admin para ver/editar vaults de otros jugadores
-- [ ] Límite de peso/items configurable
-- [ ] Cooldown entre aperturas
-- [ ] Integración con economía (costo por apertura)
-- [ ] Logs de auditoría (quién abrió qué)
-
-## 📝 Licencia
-
-MISHUMORE License - Solo para uso personal 
-
----
-
-**Desarrollado por LSurvival** | v1.0.0
-Plugin minimalista sin placeholders ni código incompleto.
+**LSurvival Vault** — *Calidad profesional para servidores que se toman el juego en serio.*
