@@ -26,7 +26,7 @@ El plugin sustituye el almacenamiento de archivos planos por **LiteDB v5**, una 
 
 ### ⚔️ Gestión de Combate (PvP Manager)
 Integra un monitor de eventos de daño para regular el acceso al almacenamiento durante situaciones de combate.
-* **Detección de Fuente:** Identifica específicamente el daño proveniente de otros jugadores (PvP), ignorando daños ambientales o de IA (zombies).
+* **Detección de Fuente:** Identifica específicamente el daño proveniente de otros jugadores (PvP), ignorando daños ambientales o de zombies.
 * **Bloqueo Temporal:** Impide la ejecución del comando de apertura durante un periodo de tiempo configurable tras recibir daño.
 
 ### 👮 Administración en Tiempo Real
