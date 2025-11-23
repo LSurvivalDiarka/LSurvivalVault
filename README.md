@@ -98,7 +98,8 @@ Supported modes in `LSurvivalVault.configuration.xml`:
 ## ⚙️ Configuration
 
 Recommended settings for production environments:
-
+💖 Acknowledgments
+Special recognition to Midnight for the high-level technical audit. Your insights regarding the Unity Lifecycle optimization (specifically the removal of the FixedUpdate loop) and the recommendation for Async I/O patterns were instrumental in refactoring this plugin from a standard script into a professional, optimized system.
 ```xml
 <LSurvivalVaultConfiguration>
     <Language>ES</Language>
@@ -108,5 +109,4 @@ Recommended settings for production environments:
     ...
 </LSurvivalVaultConfiguration>
 
-💖 Acknowledgments
-Special recognition to Midnight for the high-level technical audit. Your insights regarding the Unity Lifecycle optimization (specifically the removal of the FixedUpdate loop) and the recommendation for Async I/O patterns were instrumental in refactoring this plugin from a standard script into a professional, optimized system.
+
